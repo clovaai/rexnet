@@ -9,9 +9,14 @@ import torch.nn as nn
 from math import ceil
 
 
-class Swish(nn.Module):
+class silu(nn.Module):
+    '''
+    See `Gaussian Error Linear Units (GELUs) <https://arxiv.org/abs/1606.08415>`_ where the SiLU (Sigmoid Linear Unit) was originally coined,
+    and see `Sigmoid-Weighted Linear Units for Neural Network Function Approximation in Reinforcement Learning <https://arxiv.org/abs/1702.03118>`_
+    and `Swish: a Self-Gated Activation Function <https://arxiv.org/abs/1710.05941v1>`_ where the SiLU was experimented with later.
+    '''
     def __init__(self):
-        super(Swish, self).__init__()
+        super(silu, self).__init__()
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
@@ -26,10 +31,10 @@ def _add_conv(out, in_channels, channels, kernel=1, stride=1, pad=0,
         out.append(nn.ReLU6(inplace=True) if relu6 else nn.ReLU(inplace=True))
 
 
-def _add_conv_swish(out, in_channels, channels, kernel=1, stride=1, pad=0, num_group=1):
+def _add_conv_silu(out, in_channels, channels, kernel=1, stride=1, pad=0, num_group=1):
     out.append(nn.Conv2d(in_channels, channels, kernel, stride, pad, groups=num_group, bias=False))
     out.append(nn.BatchNorm2d(channels))
-    out.append(Swish())
+    out.append(silu())
 
 
 class SE(nn.Module):
@@ -61,7 +66,7 @@ class LinearBottleneck(nn.Module):
         out = []
         if t != 1:
             dw_channels = in_channels * t
-            _add_conv_swish(out, in_channels=in_channels, channels=dw_channels)
+            _add_conv_silu(out, in_channels=in_channels, channels=dw_channels)
         else:
             dw_channels = in_channels
 
@@ -106,7 +111,7 @@ class ReXNetV1(nn.Module):
         in_channels_group = []
         channels_group = []
 
-        _add_conv_swish(features, 3, int(round(stem_channel * width_mult)), kernel=3, stride=2, pad=1)
+        _add_conv_silu(features, 3, int(round(stem_channel * width_mult)), kernel=3, stride=2, pad=1)
 
         # The following channel configuration is a simple instance to make each layer become an expand layer.
         for i in range(self.depth // 3):
@@ -131,7 +136,7 @@ class ReXNetV1(nn.Module):
                                              use_se=se, se_ratio=se_ratio))
 
         pen_channels = int(1280 * width_mult)
-        _add_conv_swish(features, c, pen_channels)
+        _add_conv_silu(features, c, pen_channels)
 
         features.append(nn.AdaptiveAvgPool2d(1))
         self.features = nn.Sequential(*features)
