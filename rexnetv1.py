@@ -8,6 +8,23 @@ import torch
 import torch.nn as nn
 from math import ceil
 
+class SwishImplementation(torch.autograd.Function):
+    @staticmethod
+    def forward(ctx, x):
+        ctx.save_for_backward(x)
+        return x * torch.sigmoid(x)
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        x = ctx.saved_tensors[0]
+        sig = torch.sigmoid(x)
+        return grad_output * (sig * (1 + x * (1 - sig)))
+
+
+class MemoryEfficientSwish(nn.Module):
+    def forward(self, x):
+        return SwishImplementation.apply(x)
+
 
 class Swish(nn.Module):
     def __init__(self):
@@ -20,16 +37,18 @@ class Swish(nn.Module):
 
 def _add_conv(out, in_channels, channels, kernel=1, stride=1, pad=0,
               num_group=1, active=True, relu6=False):
-    out.append(nn.Conv2d(in_channels, channels, kernel, stride, pad, groups=num_group, bias=False))
+    out.append(nn.Conv2d(in_channels, channels, kernel,
+                         stride, pad, groups=num_group, bias=False))
     out.append(nn.BatchNorm2d(channels))
     if active:
         out.append(nn.ReLU6(inplace=True) if relu6 else nn.ReLU(inplace=True))
 
 
-def _add_conv_swish(out, in_channels, channels, kernel=1, stride=1, pad=0, num_group=1):
-    out.append(nn.Conv2d(in_channels, channels, kernel, stride, pad, groups=num_group, bias=False))
+def _add_conv_swish(out, in_channels, channels, kernel=1, stride=1, pad=0, num_group=1, eff_swish=False):
+    out.append(nn.Conv2d(in_channels, channels, kernel,
+                         stride, pad, groups=num_group, bias=False))
     out.append(nn.BatchNorm2d(channels))
-    out.append(Swish())
+    out.append(MemoryEfficientSwish() if eff_swish else Swish())
 
 
 class SE(nn.Module):
@@ -37,10 +56,12 @@ class SE(nn.Module):
         super(SE, self).__init__()
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
         self.fc = nn.Sequential(
-            nn.Conv2d(in_channels, channels // se_ratio, kernel_size=1, padding=0),
+            nn.Conv2d(in_channels, channels // se_ratio,
+                      kernel_size=1, padding=0),
             nn.BatchNorm2d(channels // se_ratio),
             nn.ReLU(inplace=True),
-            nn.Conv2d(channels // se_ratio, channels, kernel_size=1, padding=0),
+            nn.Conv2d(channels // se_ratio, channels,
+                      kernel_size=1, padding=0),
             nn.Sigmoid()
         )
 
@@ -51,7 +72,7 @@ class SE(nn.Module):
 
 
 class LinearBottleneck(nn.Module):
-    def __init__(self, in_channels, channels, t, stride, use_se=True, se_ratio=12,
+    def __init__(self, in_channels, channels, t, stride, use_se=True, se_ratio=12, eff_swish=False,
                  **kwargs):
         super(LinearBottleneck, self).__init__(**kwargs)
         self.use_shortcut = stride == 1 and in_channels <= channels
@@ -61,7 +82,8 @@ class LinearBottleneck(nn.Module):
         out = []
         if t != 1:
             dw_channels = in_channels * t
-            _add_conv_swish(out, in_channels=in_channels, channels=dw_channels)
+            _add_conv_swish(out, in_channels=in_channels,
+                            channels=dw_channels, eff_swish=eff_swish)
         else:
             dw_channels = in_channels
 
@@ -73,7 +95,8 @@ class LinearBottleneck(nn.Module):
             out.append(SE(dw_channels, dw_channels, se_ratio))
 
         out.append(nn.ReLU6())
-        _add_conv(out, in_channels=dw_channels, channels=channels, active=False, relu6=True)
+        _add_conv(out, in_channels=dw_channels,
+                  channels=channels, active=False, relu6=True)
         self.out = nn.Sequential(*out)
 
     def forward(self, x):
@@ -89,13 +112,15 @@ class ReXNetV1(nn.Module):
                  use_se=True,
                  se_ratio=12,
                  dropout_ratio=0.2,
-                 bn_momentum=0.9):
+                 bn_momentum=0.9,
+                 eff_swish=False):
         super(ReXNetV1, self).__init__()
 
         layers = [1, 2, 2, 3, 3, 5]
         strides = [1, 2, 2, 2, 1, 2]
         layers = [ceil(element * depth_mult) for element in layers]
-        strides = sum([[element] + [1] * (layers[idx] - 1) for idx, element in enumerate(strides)], [])
+        strides = sum([[element] + [1] * (layers[idx] - 1)
+                       for idx, element in enumerate(strides)], [])
         ts = [1] * layers[0] + [6] * sum(layers[1:])
         self.depth = sum(layers[:]) * 3
 
@@ -106,7 +131,8 @@ class ReXNetV1(nn.Module):
         in_channels_group = []
         channels_group = []
 
-        _add_conv_swish(features, 3, int(round(stem_channel * width_mult)), kernel=3, stride=2, pad=1)
+        _add_conv_swish(features, 3, int(round(stem_channel * width_mult)),
+                        kernel=3, stride=2, pad=1, eff_swish=eff_swish)
 
         # The following channel configuration is a simple instance to make each layer become an expand layer.
         for i in range(self.depth // 3):
@@ -119,7 +145,8 @@ class ReXNetV1(nn.Module):
                 channels_group.append(int(round(inplanes * width_mult)))
 
         if use_se:
-            use_ses = [False] * (layers[0] + layers[1]) + [True] * sum(layers[2:])
+            use_ses = [False] * (layers[0] + layers[1]) + \
+                [True] * sum(layers[2:])
         else:
             use_ses = [False] * sum(layers[:])
 
@@ -128,10 +155,11 @@ class ReXNetV1(nn.Module):
                                              channels=c,
                                              t=t,
                                              stride=s,
-                                             use_se=se, se_ratio=se_ratio))
+                                             use_se=se, se_ratio=se_ratio,
+                                             eff_swish=eff_swish))
 
         pen_channels = int(1280 * width_mult)
-        _add_conv_swish(features, c, pen_channels)
+        _add_conv_swish(features, c, pen_channels, eff_swish=eff_swish)
 
         features.append(nn.AdaptiveAvgPool2d(1))
         self.features = nn.Sequential(*features)
