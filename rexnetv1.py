@@ -176,7 +176,10 @@ class ReXNetV1(nn.Module):
         self.output = nn.Sequential(
             nn.Dropout(dropout_ratio),
             nn.Conv2d(pen_channels, classes, 1, bias=True))
-
+        
+    def extract_features(self, x)
+        return self.features(x)
+    
     def forward(self, x):
         x = self.features(x)
         x = self.output(x).squeeze()
