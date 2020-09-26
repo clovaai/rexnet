@@ -178,7 +178,7 @@ class ReXNetV1(nn.Module):
             nn.Conv2d(pen_channels, classes, 1, bias=True))
         
     def extract_features(self, x)
-        return self.features(x)
+        return self.features[:-1](x)
     
     def forward(self, x):
         x = self.features(x)
