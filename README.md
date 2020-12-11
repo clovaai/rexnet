@@ -22,16 +22,14 @@ This paper addresses representational bottleneck in a network and propose a set 
 ### ImageNet classification results
  
 - Overall models' performances:
- <img src=https://user-images.githubusercontent.com/31481676/101871095-4c9f3e00-3bc6-11eb-9dc1-068ca1da47b9.png width=480 hspace=30>
 
+  <img src=https://user-images.githubusercontent.com/31481676/101871095-4c9f3e00-3bc6-11eb-9dc1-068ca1da47b9.png width=480 hspace=30>
 
 
 ### COCO object detection results
 - Faster RCNN AP scores:
 
   <img src=https://user-images.githubusercontent.com/31481676/101872119-1236a080-3bc8-11eb-8340-7ef7a0f06406.png width=600 hspace=30>
-
-- SSD Lite AP scores:
 
 
 ### COCO instance segmentation results
