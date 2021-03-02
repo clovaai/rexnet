@@ -1,6 +1,6 @@
-### (NOTICE) Our paper has accepted at CVPR 2021!! The submitted paper will be updated at arxiv!
+#### (NOTICE) Our paper has accepted at CVPR 2021!! The submitted paper will be updated at arxiv!
 
-### (NOTICE) New models ReXNet-Lites which outperform EfficientNet-Lites will be uploaded soon!
+#### (NOTICE) New models ReXNet-Lites which outperform EfficientNet-Lites will be uploaded soon!
 
 ## ReXNet: Diminishing Representational Bottleneck on Convolutional Neural Network
 
@@ -40,7 +40,7 @@ This paper addresses representational bottleneck in a network and propose a set 
 
 ## Model performances
 <h2 id="pretrained"> ImageNet classification results</h2>
-- **Please refer the following pretrained models**. Top-1 and top-5 accuraies are reported with the computational costs.
+- Please refer the following pretrained models. Top-1 and top-5 accuraies are reported with the computational costs.
 - Note that all the models are trained and evaluated with 224x224 image size.
 
 Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | 
@@ -49,7 +49,7 @@ Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params |
 [ReXNet_1.3](https://drive.google.com/file/d/1x2ziK9Oyv66Y9NsxJxXsdjzpQF2uSJj0/view?usp=sharing)  | 224x224 | 79.5 | 94.7 | 0.66B/7.6M | 
 [ReXNet_1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.66B/7.6M | 
 [ReXNet_2.0](https://drive.google.com/file/d/1R1aOTKIe1Mvck86NanqcjWnlR8DY-Z4C/view?usp=sharing)  | 224x224 | 81.6 | 95.7 | 1.5B/16M | 
-[ReXNet_3.0](https://drive.google.com/file/d/1chOnQPKtE1LaLz6WzSdzH55x6VlZ29sQ/view?usp=sharing)  | 224x224 | 82.5 | 96.3 | 3.4B/34M |  
+[ReXNet_3.0](https://drive.google.com/file/d/1chOnQPKtE1LaLz6WzSdzH55x6VlZ29sQ/view?usp=sharing)  | 224x224 | 82.8 | 96.2 | 3.4B/34M |  
 
 
 ### Finetuning results
