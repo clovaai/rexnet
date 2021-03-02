@@ -1,4 +1,6 @@
-(NOTICE) This page will be soon updated again with some new models (ReXNet-lites) and the revised paper
+### **(NOTICE) Our paper has accepted at CVPR 2021!! The submitted paper will be updated at arxiv!
+
+#### **(NOTICE) New models ReXNet-Lites which outperform EfficientNet-Lites will be uploaded soon!
 
 ## ReXNet: Diminishing Representational Bottleneck on Convolutional Neural Network
 
