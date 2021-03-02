@@ -40,6 +40,7 @@ This paper addresses representational bottleneck in a network and propose a set 
 
 ## Model performances
 <h2 id="pretrained"> ImageNet classification results</h2>
+
 - Please refer the following pretrained models. Top-1 and top-5 accuraies are reported with the computational costs.
 - Note that all the models are trained and evaluated with 224x224 image size.
 
