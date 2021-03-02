@@ -27,16 +27,16 @@ This paper addresses representational bottleneck in a network and propose a set 
   Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
   :--: |:--:|:--:|:--:|:--:|:--:|
   EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/71ms  
-  **ReXNet-1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/68ms
+  **ReXNet_1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/68ms
   |||||
   EfficientNet-B1 | 240x240 | 79.2 | 94.5 | 0.70B/7.8M | 70ms/112ms
-  **ReXNet-1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/84ms  
+  **ReXNet_1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/84ms  
   |||||
   EfficientNet-B2 | 260x260 | 80.3 | 95.0 | 1.0B/9.2M | 77ms/141ms
-  **ReXNet-1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/92ms
+  **ReXNet_1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/92ms
   |||||
   EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/223ms    
-  **ReXNet-2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/118ms  
+  **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/118ms  
 
 ## Model performances
 <h2 id="pretrained"> ImageNet classification results</h2>
@@ -45,11 +45,11 @@ This paper addresses representational bottleneck in a network and propose a set 
 
 Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | 
 :--: |:--:|:--:|:--:|:--:
-[ReXNet_V1-1.0](https://drive.google.com/file/d/1xeIJ3wb83uOowU008ykYj6wDX2dsncA9/view?usp=sharing)  | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 
-[ReXNet_V1-1.3](https://drive.google.com/file/d/1x2ziK9Oyv66Y9NsxJxXsdjzpQF2uSJj0/view?usp=sharing)  | 224x224 | 79.5 | 94.7 | 0.66B/7.6M | 
-[ReXNet_V1-1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.66B/7.6M | 
-[ReXNet_V1-2.0](https://drive.google.com/file/d/1R1aOTKIe1Mvck86NanqcjWnlR8DY-Z4C/view?usp=sharing)  | 224x224 | 81.6 | 95.7 | 1.5B/16M | 
-[ReXNet_V1-3.0](https://drive.google.com/file/d/1chOnQPKtE1LaLz6WzSdzH55x6VlZ29sQ/view?usp=sharing)  | 224x224 | 82.5 | 96.3 | 3.4B/34M |  
+[ReXNet_1.0](https://drive.google.com/file/d/1xeIJ3wb83uOowU008ykYj6wDX2dsncA9/view?usp=sharing)  | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 
+[ReXNet_1.3](https://drive.google.com/file/d/1x2ziK9Oyv66Y9NsxJxXsdjzpQF2uSJj0/view?usp=sharing)  | 224x224 | 79.5 | 94.7 | 0.66B/7.6M | 
+[ReXNet_1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.66B/7.6M | 
+[ReXNet_2.0](https://drive.google.com/file/d/1R1aOTKIe1Mvck86NanqcjWnlR8DY-Z4C/view?usp=sharing)  | 224x224 | 81.6 | 95.7 | 1.5B/16M | 
+[ReXNet_3.0](https://drive.google.com/file/d/1chOnQPKtE1LaLz6WzSdzH55x6VlZ29sQ/view?usp=sharing)  | 224x224 | 82.5 | 96.3 | 3.4B/34M |  
 
 
 ### Finetuning results
@@ -72,7 +72,7 @@ Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params |
 - The following results are trained with **Mask RCNN with FPN**, S_AP and B_AP denote segmentation AP and box AP, respectively:
 
 | Backbone |Img. Size|  S_AP (%) | S_AP_0.5 (%) | S_AP_0.75 (%) | B_AP (%) | B_AP_0.5 (%) | B_AP_0.75 (%) | Params. |FLOPs | Eval. set|
-|:----:|:----:|:----:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|:----:|:----:|:----:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|
 | EfficientNetB0_FPN     | 1200x800 | 34.8 | 56.8 | 36.6 | 38.4 | 60.2 | 40.8 | 23.7M | 123.0B | val2017|
 | ReXNet_0.9-FPN  | 1200x800 | **35.2** | **57.4**| **37.1** |**38.7** |**60.8**|**41.6**| 22.8M | 123.0B | val2017|
 | ReXNet_1.0-FPN  | 1200x800 | 35.4 | 57.7 | 37.4 | 38.9 |61.1 | 42.1 | 23.3M | 124.1B | val2017|
@@ -93,16 +93,16 @@ Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params |
   Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | CPU Lat./ GPU Lat.
   :--: |:--:|:--:|:--:|:--:|:--:|
   EfficientNet-lite0 | 224x224 | 75.1 | - |  0.41B/4.7M | 30ms/49ms
-  **ReXNet-lite-1.0** | 224x224 | 76.2 | 92.8 | 0.41B/4.7M | 31ms/49ms
+  **ReXNet-lite_1.0** | 224x224 | 76.2 | 92.8 | 0.41B/4.7M | 31ms/49ms
   |||||
   EfficientNet-lite1 | 240x240 | 76.7 | - |  0.63B/5.4M | 44ms/73ms
-  **ReXNet-lite-1.3** | 224x224 | 77.8 | 93.8 | 0.65B/6.8M | 36ms/61ms  
+  **ReXNet-lite_1.3** | 224x224 | 77.8 | 93.8 | 0.65B/6.8M | 36ms/61ms  
   |||||  
   EfficientNet-lite2 | 260x260 | 77.6 | - | 0.90B/ 6.1M | 48ms/93ms
-  **ReXNet-lite-1.5** | 224x224 | 78.6 | 94.2| 0.84B/8.3M| 39ms/68ms    
+  **ReXNet-lite_1.5** | 224x224 | 78.6 | 94.2| 0.84B/8.3M| 39ms/68ms    
   |||||  
   EfficientNet-lite3 | 280x280| 79.8  | - |  1.4B/ 8.2M | 60ms/131ms
-  **ReXNet-lite-2.0** | 224x224 | 80.2  | 95.0 | 1.5B/13M | 49ms/90ms  
+  **ReXNet-lite_2.0** | 224x224 | 80.2  | 95.0 | 1.5B/13M | 49ms/90ms  
   
 ## Getting Started
 ### Requirements
