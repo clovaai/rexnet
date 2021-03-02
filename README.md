@@ -1,4 +1,4 @@
-#### (NOTICE) Our paper has accepted at CVPR 2021!! The submitted paper will be updated at arxiv!
+#### (NOTICE) Our paper has been accepted at CVPR 2021!! The submitted paper will be updated at arxiv!
 
 #### (NOTICE) New models ReXNet-Lites which outperform EfficientNet-Lites will be uploaded soon!
 
@@ -21,8 +21,7 @@ This paper addresses representational bottleneck in a network and propose a set 
 
 ### Actual performance scores
 - The CPU latencies are tested on Xeon E5-2630_v4 with a single image and the GPU latencies iare measured on M40 PGUs with **the batchsize of 64**.
-- EfficientNet's accuracy scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
-- For the FLOPs, params., latencies, the smaller valeus indicate the faster inference speeed.
+- EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
   Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
   :--: |:--:|:--:|:--:|:--:|:--:|
