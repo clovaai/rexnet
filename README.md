@@ -157,11 +157,12 @@ This project is distributed under [MIT license](LICENSE).
 ## How to cite
 
 ```
-@article{han2020rexnet,
-    title={{ReXNet}: Diminishing Representational Bottleneck on Convolutional Neural Network
-},
-    author={Han, Dongyoon and Yun, Sangdoo and Heo, Byeongho and Yoo, YoungJoon},
-    year={2020},
-    journal={arXiv preprint arXiv:2007.00992},
+@misc{han2021rethinking,
+      title={Rethinking Channel Dimensions for Efficient Model Design}, 
+      author={Dongyoon Han and Sangdoo Yun and Byeongho Heo and YoungJoon Yoo},
+      year={2021},
+      eprint={2007.00992},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 ```
