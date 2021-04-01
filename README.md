@@ -15,25 +15,26 @@ Designing an efficient model within the limited computational cost is challengin
 
 
 
-<img src=https://user-images.githubusercontent.com/31481676/113254393-78733a80-9301-11eb-9b50-c0640d017d6a.png width=2000 hspace=80>
+<img src=https://user-images.githubusercontent.com/31481676/113254746-f0416500-9301-11eb-9cd8-f188037cc82c.png width=2000 hspace=50>
+
 
 ### Actual performance scores
 - The CPU latencies are tested on Xeon E5-2630_v4 with a single image and the GPU latencies iare measured on M40 PGUs with **the batchsize of 64**.
 - EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
-  Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
-  :--: |:--:|:--:|:--:|:--:|:--:|
-  EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/71ms  
-  **ReXNet_1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/68ms
-  |||||
-  EfficientNet-B1 | 240x240 | 79.2 | 94.5 | 0.70B/7.8M | 70ms/112ms
-  **ReXNet_1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/84ms  
-  |||||
-  EfficientNet-B2 | 260x260 | 80.3 | 95.0 | 1.0B/9.2M | 77ms/141ms
-  **ReXNet_1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/92ms
-  |||||
-  EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/223ms    
-  **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/118ms  
+    Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
+    :--: |:--:|:--:|:--:|:--:|:--:|
+    EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/71ms  
+    **ReXNet_1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/68ms
+    |||||
+    EfficientNet-B1 | 240x240 | 79.2 | 94.5 | 0.70B/7.8M | 70ms/112ms
+    **ReXNet_1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/84ms  
+    |||||
+    EfficientNet-B2 | 260x260 | 80.3 | 95.0 | 1.0B/9.2M | 77ms/141ms
+    **ReXNet_1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/92ms
+    |||||
+    EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/223ms    
+    **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/118ms  
 
 ## Model performances
 <h2 id="pretrained"> ImageNet classification results</h2>
@@ -41,42 +42,42 @@ Designing an efficient model within the limited computational cost is challengin
 - Please refer the following pretrained models. Top-1 and top-5 accuraies are reported with the computational costs.
 - Note that all the models are trained and evaluated with 224x224 image size.
 
-Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | 
-:--: |:--:|:--:|:--:|:--:
-[ReXNet_1.0](https://drive.google.com/file/d/1xeIJ3wb83uOowU008ykYj6wDX2dsncA9/view?usp=sharing)  | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 
-[ReXNet_1.3](https://drive.google.com/file/d/1x2ziK9Oyv66Y9NsxJxXsdjzpQF2uSJj0/view?usp=sharing)  | 224x224 | 79.5 | 94.7 | 0.66B/7.6M | 
-[ReXNet_1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.66B/7.6M | 
-[ReXNet_2.0](https://drive.google.com/file/d/1R1aOTKIe1Mvck86NanqcjWnlR8DY-Z4C/view?usp=sharing)  | 224x224 | 81.6 | 95.7 | 1.5B/16M | 
-[ReXNet_3.0](https://drive.google.com/file/d/1chOnQPKtE1LaLz6WzSdzH55x6VlZ29sQ/view?usp=sharing)  | 224x224 | 82.8 | 96.2 | 3.4B/34M |  
+  Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | 
+  :--: |:--:|:--:|:--:|:--:
+  [ReXNet_1.0](https://drive.google.com/file/d/1xeIJ3wb83uOowU008ykYj6wDX2dsncA9/view?usp=sharing)  | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 
+  [ReXNet_1.3](https://drive.google.com/file/d/1x2ziK9Oyv66Y9NsxJxXsdjzpQF2uSJj0/view?usp=sharing)  | 224x224 | 79.5 | 94.7 | 0.66B/7.6M | 
+  [ReXNet_1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.66B/7.6M | 
+  [ReXNet_2.0](https://drive.google.com/file/d/1R1aOTKIe1Mvck86NanqcjWnlR8DY-Z4C/view?usp=sharing)  | 224x224 | 81.6 | 95.7 | 1.5B/16M | 
+  [ReXNet_3.0](https://drive.google.com/file/d/1chOnQPKtE1LaLz6WzSdzH55x6VlZ29sQ/view?usp=sharing)  | 224x224 | 82.8 | 96.2 | 3.4B/34M |  
 
 
 ### Finetuning results
 #### COCO Object detection 
 - The following results are trained with **Faster RCNN with FPN**:
 
-| Backbone |Img. Size|  B_AP (%) | B_AP_0.5 (%) |  B_AP_0.75 (%) | Params. |FLOPs | Eval. set|
-|:----:|:----:|:----:|:----:|:----:|:---:|:---:|:---:|
-| FBNet-C-FPN        | 1200x800 | 35.1 | 57.4 | 37.2 | 21.4M | 119.0B | val2017 |
-| EfficientNetB0-FPN | 1200x800 | 38.0 | 60.1 | 40.4 | 21.0M | 123.0B | val2017|
-| ReXNet_0.9-FPN     | 1200x800 | 38.0 | **60.6** | 40.8 | 20.1M | 123.0B | val2017|
-| ReXNet_1.0-FPN     | 1200x800 | **38.5** | **60.6** | **41.5** | 20.7M | 124.1B | val2017|
-|||||||||
-| ResNet50-FPN     | 1200x800 | 37.6| 58.2| 40.9 | 41.8M | 202.2B | val2017|
-| ResNeXt-101-FPN  | 1200x800 | 40.3 | 62.1 | 44.1 | 60.4M | 272.4B | val2017|
-| ReXNet_2.2-FPN   | 1200x800| **41.5** | **64.0** | **44.9** | 33.0M | 153.8B | val2017|
+  | Backbone |Img. Size|  B_AP (%) | B_AP_0.5 (%) |  B_AP_0.75 (%) | Params. |FLOPs | Eval. set|
+  |:----:|:----:|:----:|:----:|:----:|:---:|:---:|:---:|
+  | FBNet-C-FPN        | 1200x800 | 35.1 | 57.4 | 37.2 | 21.4M | 119.0B | val2017 |
+  | EfficientNetB0-FPN | 1200x800 | 38.0 | 60.1 | 40.4 | 21.0M | 123.0B | val2017|
+  | ReXNet_0.9-FPN     | 1200x800 | 38.0 | **60.6** | 40.8 | 20.1M | 123.0B | val2017|
+  | ReXNet_1.0-FPN     | 1200x800 | **38.5** | **60.6** | **41.5** | 20.7M | 124.1B | val2017|
+  |||||||||
+  | ResNet50-FPN     | 1200x800 | 37.6| 58.2| 40.9 | 41.8M | 202.2B | val2017|
+  | ResNeXt-101-FPN  | 1200x800 | 40.3 | 62.1 | 44.1 | 60.4M | 272.4B | val2017|
+  | ReXNet_2.2-FPN   | 1200x800| **41.5** | **64.0** | **44.9** | 33.0M | 153.8B | val2017|
 
 
 #### COCO instance segmentation
 - The following results are trained with **Mask RCNN with FPN**, S_AP and B_AP denote segmentation AP and box AP, respectively:
 
-| Backbone |Img. Size|  S_AP (%) | S_AP_0.5 (%) | S_AP_0.75 (%) | B_AP (%) | B_AP_0.5 (%) | B_AP_0.75 (%) | Params. |FLOPs | Eval. set|
-|:----:|:----:|:----:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|
-| EfficientNetB0_FPN     | 1200x800 | 34.8 | 56.8 | 36.6 | 38.4 | 60.2 | 40.8 | 23.7M | 123.0B | val2017|
-| ReXNet_0.9-FPN  | 1200x800 | **35.2** | **57.4**| **37.1** |**38.7** |**60.8**|**41.6**| 22.8M | 123.0B | val2017|
-| ReXNet_1.0-FPN  | 1200x800 | 35.4 | 57.7 | 37.4 | 38.9 |61.1 | 42.1 | 23.3M | 124.1B | val2017|
-|||||||||||| 
-| ResNet50-FPN           | 1200x800 | 34.6 | 55.9 | 36.8 |38.5 |59.0|41.6|  44.2M | 207B | val2017|
-| ReXNet_2.2-FPN | 1200x800 | **37.8** | **61.0** | **40.2** | **42.0** | **64.5** | **45.6**|  35.6M | 153.8B | val2017|
+  | Backbone |Img. Size|  S_AP (%) | S_AP_0.5 (%) | S_AP_0.75 (%) | B_AP (%) | B_AP_0.5 (%) | B_AP_0.75 (%) | Params. |FLOPs | Eval. set|
+  |:----:|:----:|:----:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|
+  | EfficientNetB0_FPN     | 1200x800 | 34.8 | 56.8 | 36.6 | 38.4 | 60.2 | 40.8 | 23.7M | 123.0B | val2017|
+  | ReXNet_0.9-FPN  | 1200x800 | **35.2** | **57.4**| **37.1** |**38.7** |**60.8**|**41.6**| 22.8M | 123.0B | val2017|
+  | ReXNet_1.0-FPN  | 1200x800 | 35.4 | 57.7 | 37.4 | 38.9 |61.1 | 42.1 | 23.3M | 124.1B | val2017|
+  |||||||||||| 
+  | ResNet50-FPN           | 1200x800 | 34.6 | 55.9 | 36.8 |38.5 |59.0|41.6|  44.2M | 207B | val2017|
+  | ReXNet_2.2-FPN | 1200x800 | **37.8** | **61.0** | **40.2** | **42.0** | **64.5** | **45.6**|  35.6M | 153.8B | val2017|
 
 ### Transfer learning results
 - Using ImageNet-pretrained models to transfer on the fine-grained datasets:
