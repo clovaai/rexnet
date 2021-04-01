@@ -1,4 +1,4 @@
-#### (NOTICE) Our paper has been accepted at CVPR 2021!! The submitted paper has been upddated at [arxiv](https://arxiv.org/pdf/2007.00992.pdf)!
+#### (NOTICE) Our paper has been accepted at CVPR 2021!! The paper has been updated at [arxiv](https://arxiv.org/pdf/2007.00992.pdf)!
 
 ## Rethinking Channel Dimensions for Efficient Model Design
 
@@ -11,32 +11,33 @@ NAVER AI Lab
 Designing an efficient model within the limited computational cost is challenging. We argue the accuracy of a lightweight model has been further limited by the design convention: a stage-wise configuration of the channel dimensions, which looks like a piecewise linear function of the network stage. In this paper, we study an effective channel dimension configuration towards better performance than the convention. To this end, we empirically study how to design a single layer properly by analyzing the rank of the output feature. We then investigate the channel configuration of a model by searching network architectures concerning the channel configuration under the computational cost restriction. Based on the investigation, we propose a simple yet effective channel configuration that can be parameterized by the layer index. As a result, our proposed model following the channel parameterization achieves remarkable performance on ImageNet classification and transfer learning tasks including COCO object detection, COCO instance segmentation, and fine-grained classifications. 
 
 ## ReXNets vs. EfficientNets
-### Accuracy vs computational costs
-
+### Accuracy vs. Computational costs
 
 
 <img src=https://user-images.githubusercontent.com/31481676/113254746-f0416500-9301-11eb-9cd8-f188037cc82c.png width=2000 hspace=50>
 
 
-### Actual performance scores
-- The CPU latencies are tested on Xeon E5-2630_v4 with a single image and the GPU latencies iare measured on M40 PGUs with **the batchsize of 64**.
+### Performance comparison
+- The CPU latencies are tested on Xeon E5-2630_v4 with a single image and the GPU latencies are measured on a V100 GPU with **the batchsize of 64**.
 - EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
     Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
     :--: |:--:|:--:|:--:|:--:|:--:|
-    EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/71ms  
-    **ReXNet_1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/68ms
+    **ReXNet_0.9** | 224x224 | 77.2 | 93.5 | 0.35B/4.1M | 45ms/20ms
+    |||||    
+    EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/23ms  
+    **ReXNet_1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/21ms
     |||||
-    EfficientNet-B1 | 240x240 | 79.2 | 94.5 | 0.70B/7.8M | 70ms/112ms
-    **ReXNet_1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/84ms  
+    EfficientNet-B1 | 240x240 | 79.2 | 94.5 | 0.70B/7.8M | 70ms/37ms
+    **ReXNet_1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/28ms  
     |||||
-    EfficientNet-B2 | 260x260 | 80.3 | 95.0 | 1.0B/9.2M | 77ms/141ms
-    **ReXNet_1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/92ms
+    EfficientNet-B2 | 260x260 | 80.3 | 95.0 | 1.0B/9.2M | 77ms/48ms
+    **ReXNet_1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/31ms
     |||||
-    EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/223ms    
-    **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/118ms  
+    EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/78ms    
+    **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/40ms  
 
-## Model performances
+## Pretrained models
 <h2 id="pretrained"> ImageNet classification results</h2>
 
 - Please refer the following pretrained models. Top-1 and top-5 accuraies are reported with the computational costs.
@@ -86,8 +87,9 @@ Designing an efficient model within the limited computational cost is challengin
 
 
 ### ReXNet-lites vs. EfficientNet-lites
-#### Actual performance scores
+#### Model comparison
 - We compare ReXNet-lites with [EfficientNet-lites](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite).
+- Here the GPU latencies are measured on two M40 GPUs, we will update the number run on a V100 GPU soon.
 
   Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | CPU Lat./ GPU Lat.
   :--: |:--:|:--:|:--:|:--:|:--:|
