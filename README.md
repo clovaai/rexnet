@@ -49,8 +49,12 @@ Designing an efficient model within the limited computational cost is challengin
   [ReXNet_1.3](https://drive.google.com/file/d/1x2ziK9Oyv66Y9NsxJxXsdjzpQF2uSJj0/view?usp=sharing)  | 224x224 | 79.5 | 94.7 | 0.66B/7.6M | 
   [ReXNet_1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.66B/7.6M | 
   [ReXNet_2.0](https://drive.google.com/file/d/1R1aOTKIe1Mvck86NanqcjWnlR8DY-Z4C/view?usp=sharing)  | 224x224 | 81.6 | 95.7 | 1.5B/16M | 
-  [ReXNet_3.0](https://drive.google.com/file/d/1chOnQPKtE1LaLz6WzSdzH55x6VlZ29sQ/view?usp=sharing)  | 224x224 | 82.8 | 96.2 | 3.4B/34M |  
-
+  [ReXNet_3.0](https://drive.google.com/file/d/1iXAsr8gs3pRz0QyHKomdj5SGVzPWbIs2/view?usp=sharing)  | 224x224 | 82.8 | 96.2 | 3.4B/34M |  
+  ||||
+  [ReXNet-lite_1.0](https://drive.google.com/file/d/1d9G4pLwZwkoDR2TRPCQlxiWiuC7R-Oqf/view?usp=sharing) | 224x224 | 76.2 | 92.8 | 0.41B/4.7M |
+  [ReXNet-lite_1.3]() | 224x224 | 77.8 | 93.8 | 0.65B/6.8M |
+  [ReXNet-lite_1.5]() | 224x224 | 78.6 | 94.2 | 0.84B/8.3M| 
+  [ReXNet-lite_2.0]() | 224x224 | 80.2 | 95.0 | 1.5B/13M | 
 
 ### Finetuning results
 #### COCO Object detection 
