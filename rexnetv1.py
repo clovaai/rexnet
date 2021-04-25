@@ -9,48 +9,48 @@ import torch.nn as nn
 from math import ceil
 
 # Memory-efficient Siwsh using torch.jit.script borrowed from the code in (https://twitter.com/jeremyphoward/status/1188251041835315200)
-# Currently use memory-efficient Swish as default:
-USE_MEMORY_EFFICIENT_SWISH = True
+# Currently use memory-efficient SiLU as default:
+USE_MEMORY_EFFICIENT_SiLU = True
 
-if USE_MEMORY_EFFICIENT_SWISH:
+if USE_MEMORY_EFFICIENT_SiLU:
     @torch.jit.script
-    def swish_fwd(x):
+    def SiLU_fwd(x):
         return x.mul(torch.sigmoid(x))
 
 
     @torch.jit.script
-    def swish_bwd(x, grad_output):
+    def SiLU_bwd(x, grad_output):
         x_sigmoid = torch.sigmoid(x)
         return grad_output * (x_sigmoid * (1. + x * (1. - x_sigmoid)))
 
 
-    class SwishJitImplementation(torch.autograd.Function):
+    class SiLUJitImplementation(torch.autograd.Function):
         @staticmethod
         def forward(ctx, x):
             ctx.save_for_backward(x)
-            return swish_fwd(x)
+            return SiLU_fwd(x)
 
         @staticmethod
         def backward(ctx, grad_output):
             x = ctx.saved_tensors[0]
-            return swish_bwd(x, grad_output)
+            return SiLU_bwd(x, grad_output)
 
 
-    def swish(x, inplace=False):
-        return SwishJitImplementation.apply(x)
+    def SiLU(x, inplace=False):
+        return SiLUJitImplementation.apply(x)
 
 else:
-    def swish(x, inplace=False):
+    def SiLU(x, inplace=False):
         return x.mul_(x.sigmoid()) if inplace else x.mul(x.sigmoid())
 
 
-class Swish(nn.Module):
+class SiLU(nn.Module):
     def __init__(self, inplace=True):
-        super(Swish, self).__init__()
+        super(SiLU, self).__init__()
         self.inplace = inplace
 
     def forward(self, x):
-        return swish(x, self.inplace)
+        return SiLU(x, self.inplace)
 
 
 def ConvBNAct(out, in_channels, channels, kernel=1, stride=1, pad=0,
@@ -62,11 +62,11 @@ def ConvBNAct(out, in_channels, channels, kernel=1, stride=1, pad=0,
         out.append(nn.ReLU6(inplace=True) if relu6 else nn.ReLU(inplace=True))
 
 
-def ConvBNSwish(out, in_channels, channels, kernel=1, stride=1, pad=0, num_group=1):
+def ConvBNSiLU(out, in_channels, channels, kernel=1, stride=1, pad=0, num_group=1):
     out.append(nn.Conv2d(in_channels, channels, kernel,
                          stride, pad, groups=num_group, bias=False))
     out.append(nn.BatchNorm2d(channels))
-    out.append(Swish())
+    out.append(SiLU())
 
 
 class SE(nn.Module):
@@ -98,7 +98,7 @@ class LinearBottleneck(nn.Module):
         out = []
         if t != 1:
             dw_channels = in_channels * t
-            ConvBNSwish(out, in_channels=in_channels, channels=dw_channels)
+            ConvBNSiLU(out, in_channels=in_channels, channels=dw_channels)
         else:
             dw_channels = in_channels
 
@@ -159,7 +159,7 @@ class ReXNetV1(nn.Module):
                 inplanes += final_ch / (self.depth // 3 * 1.0)
                 channels_group.append(int(round(inplanes * width_mult)))
 
-        ConvBNSwish(features, 3, int(round(stem_channel * width_mult)), kernel=3, stride=2, pad=1)
+        ConvBNSiLU(features, 3, int(round(stem_channel * width_mult)), kernel=3, stride=2, pad=1)
 
         for block_idx, (in_c, c, t, s, se) in enumerate(zip(in_channels_group, channels_group, ts, strides, use_ses)):
             features.append(LinearBottleneck(in_channels=in_c,
@@ -169,7 +169,7 @@ class ReXNetV1(nn.Module):
                                              use_se=se, se_ratio=se_ratio))
 
         pen_channels = int(1280 * width_mult)
-        ConvBNSwish(features, c, pen_channels)
+        ConvBNSiLU(features, c, pen_channels)
 
         features.append(nn.AdaptiveAvgPool2d(1))
         self.features = nn.Sequential(*features)
@@ -181,3 +181,9 @@ class ReXNetV1(nn.Module):
         x = self.features(x)
         x = self.output(x).squeeze()
         return x
+
+
+def rexnet_100(pretrained=False, **kwargs):
+    """ReXNet V1 1.0x"""
+    return _create_rexnet('rexnet_100', pretrained, **kwargs)
+
