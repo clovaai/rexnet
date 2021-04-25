@@ -117,28 +117,27 @@ Designing an efficient model within the limited computational cost is challengin
 - NumPy
 
 ### Using the pretrained models
-- Usage is the same as the other models officially released in pytorch [Torchvision](https://pytorch.org/docs/stable/torchvision/models.html).
+- [timm>=0.3.0](https://github.com/rwightman/pytorch-image-models) provides wonderful wrap-up of ours models thanks to [Ross Wightman](https://github.com/rwightman). Otherwise, the models can be loaded as follows:
+  - To use ReXNet on a GPU:
+  ```python
+  import torch
+  import rexnetv1
+  
+  model = rexnetv1.ReXNetV1(width_mult=1.0).cuda()
+  model.load_state_dict(torch.load('./rexnetv1_1.0x.pth'))
+  model.eval()
+  print(model(torch.randn(1, 3, 224, 224).cuda()))
+  ```
 
-- Using models in GPUs:
-```python
-import torch
-import rexnetv1
+  - To use ReXNet-lite on a CPU:
+  ```python
+  import torch
+  import rexnetv1_lite
 
-model = rexnetv1.ReXNetV1(width_mult=1.0).cuda()
-model.load_state_dict(torch.load('./rexnetv1_1.0x.pth'))
-model.eval()
-print(model(torch.randn(1, 3, 224, 224).cuda()))
-```
-
-- For CPUs:
-```python
-import torch
-import rexnetv1
-
-model = rexnetv1.ReXNetV1(width_mult=1.0)
-model.load_state_dict(torch.load('./rexnetv1_1.0x.pth', map_location=torch.device('cpu')))
-model.eval()
-print(model(torch.randn(1, 3, 224, 224)))
+  model = rexnetv1_lite.ReXNetV1_lite(multiplier=1.0)
+  model.load_state_dict(torch.load('./rexnet_lite_1.0.pth', map_location=torch.device('cpu')))
+  model.eval()
+  print(model(torch.randn(1, 3, 224, 224)))
 
 
 ```
@@ -146,12 +145,14 @@ print(model(torch.randn(1, 3, 224, 224)))
 
 ReXNet can be trained with any PyTorch training codes including [ImageNet training in PyTorch](https://github.com/pytorch/examples/tree/master/imagenet) with the model file and proper arguments. Since the provided model file is not complicated, we simply convert the model to train a ReXNet in other frameworks like MXNet. For MXNet, we recommend [MXnet-gluoncv](https://gluon-cv.mxnet.io/model_zoo/classification.html) as a training code.
 
-Using PyTorch, we trained ReXNets with one of the popular imagenet classification code, rwightman's [pytorch-image-models](https://github.com/rwightman/pytorch-image-models) for more efficient training. After including ReXNet's model file into the training code, one can train ReXNet-1.0x with the following command line:
+Using PyTorch, we trained ReXNets with one of the popular imagenet classification code, [Ross Wightman](https://github.com/rwightman)'s [pytorch-image-models](https://github.com/rwightman/pytorch-image-models) for more efficient training. After including ReXNet's model file into the training code, one can train ReXNet-1.0x with the following command line:
 
     ./distributed_train.sh 4 /imagenet/ --model rexnetv1 --rex-width-mult 1.0 --opt sgd --amp \
      --lr 0.5 --weight-decay 1e-5 \
      --batch-size 128 --epochs 400 --sched cosine \
      --remode pixel --reprob 0.2 --drop 0.2 --aa rand-m9-mstd0.5 
+     
+Using droppath or MixUP may need to train a bigger model.
 
 ## License
 
