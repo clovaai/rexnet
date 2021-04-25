@@ -1,3 +1,4 @@
+#### (NOTICE) ReXNet-lite's code and the model file (x1.0) have been updated!
 #### (NOTICE) Our paper has been accepted at CVPR 2021!! The paper has been updated at [arxiv](https://arxiv.org/pdf/2007.00992.pdf)!
 
 ## Rethinking Channel Dimensions for Efficient Model Design
@@ -17,7 +18,7 @@ Designing an efficient model within the limited computational cost is challengin
 <img src=https://user-images.githubusercontent.com/31481676/113254746-f0416500-9301-11eb-9cd8-f188037cc82c.png width=2000 hspace=50>
 
 
-### Performance comparison
+### Performance compariso
 - The CPU latencies are tested on Xeon E5-2630_v4 with a single image and the GPU latencies are measured on a V100 GPU with **the batchsize of 64**.
 - EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
@@ -117,7 +118,7 @@ Designing an efficient model within the limited computational cost is challengin
 - NumPy
 
 ### Using the pretrained models
-- [timm>=0.3.0](https://github.com/rwightman/pytorch-image-models) provides wonderful wrap-up of ours models thanks to [Ross Wightman](https://github.com/rwightman). Otherwise, the models can be loaded as follows:
+- [timm>=0.3.0](https://github.com/rwightman/pytorch-image-models) provides the wonderful wrap-up of ours models thanks to [Ross Wightman](https://github.com/rwightman). Otherwise, the models can be loaded as follows:
   - To use ReXNet on a GPU:
   ```python
   import torch
