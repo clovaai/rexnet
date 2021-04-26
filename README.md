@@ -135,8 +135,8 @@ Designing an efficient model within the limited computational cost is challengin
   model.eval()
   print(model(torch.randn(1, 3, 224, 224)))
 
+  ```
 
-```
 ### Training own ReXNet
 
 ReXNet can be trained with any PyTorch training codes including [ImageNet training in PyTorch](https://github.com/pytorch/examples/tree/master/imagenet) with the model file and proper arguments. Since the provided model file is not complicated, we simply convert the model to train a ReXNet in other frameworks like MXNet. For MXNet, we recommend [MXnet-gluoncv](https://gluon-cv.mxnet.io/model_zoo/classification.html) as a training code.
