@@ -11,14 +11,15 @@ NAVER AI Lab
 
 Designing an efficient model within the limited computational cost is challenging. We argue the accuracy of a lightweight model has been further limited by the design convention: a stage-wise configuration of the channel dimensions, which looks like a piecewise linear function of the network stage. In this paper, we study an effective channel dimension configuration towards better performance than the convention. To this end, we empirically study how to design a single layer properly by analyzing the rank of the output feature. We then investigate the channel configuration of a model by searching network architectures concerning the channel configuration under the computational cost restriction. Based on the investigation, we propose a simple yet effective channel configuration that can be parameterized by the layer index. As a result, our proposed model following the channel parameterization achieves remarkable performance on ImageNet classification and transfer learning tasks including COCO object detection, COCO instance segmentation, and fine-grained classifications. 
 
-## ReXNets vs. EfficientNets
-### Accuracy vs. Computational costs
+## Model performance
+- We first illustrate our models' top-acc. vs. computational costs graphs compared with EfficientNets
 
 
-<img src=https://user-images.githubusercontent.com/31481676/113254746-f0416500-9301-11eb-9cd8-f188037cc82c.png width=2000 hspace=50>
+<img src=https://user-images.githubusercontent.com/31481676/113254746-f0416500-9301-11eb-9cd8-f188037cc82c.png width=2000 hspace=20>
 
 
-### Performance compariso
+### Performance comparison
+#### ReXNets vs EfficientNets
 - The CPU latencies are tested on Xeon E5-2630_v4 with a single image and the GPU latencies are measured on a V100 GPU with **the batchsize of 64**.
 - EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
@@ -37,8 +38,27 @@ Designing an efficient model within the limited computational cost is challengin
     |||||
     EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/78ms    
     **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/40ms  
+    
+#### ReXNet-lites vs. EfficientNet-lites
+- ReXNet-lites do not use SE-net an SiLU activations aiming to faster training and inference speed.
+- We compare ReXNet-lites with [EfficientNet-lites](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite).
+- Here the GPU latencies are measured on two M40 GPUs, we will update the number run on a V100 GPU soon.
 
-## Pretrained models
+  Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | CPU Lat./ GPU Lat.
+  :--: |:--:|:--:|:--:|:--:|:--:|
+  EfficientNet-lite0 | 224x224 | 75.1 | - |  0.41B/4.7M | 30ms/49ms
+  **ReXNet-lite_1.0** | 224x224 | 76.2 | 92.8 | 0.41B/4.7M | 31ms/49ms
+  |||||
+  EfficientNet-lite1 | 240x240 | 76.7 | - |  0.63B/5.4M | 44ms/73ms
+  **ReXNet-lite_1.3** | 224x224 | 77.8 | 93.8 | 0.65B/6.8M | 36ms/61ms  
+  |||||  
+  EfficientNet-lite2 | 260x260 | 77.6 | - | 0.90B/ 6.1M | 48ms/93ms
+  **ReXNet-lite_1.5** | 224x224 | 78.6 | 94.2| 0.84B/8.3M| 39ms/68ms    
+  |||||  
+  EfficientNet-lite3 | 280x280| 79.8  | - |  1.4B/ 8.2M | 60ms/131ms
+  **ReXNet-lite_2.0** | 224x224 | 80.2  | 95.0 | 1.5B/13M | 49ms/90ms  
+  
+## ImageNet-1k Pretrained models
 <h2 id="pretrained"> ImageNet classification results</h2>
 
 - Please refer the following pretrained models. Top-1 and top-5 accuraies are reported with the computational costs.
@@ -84,31 +104,6 @@ Designing an efficient model within the limited computational cost is challengin
   |||||||||||| 
   | ResNet50-FPN           | 1200x800 | 34.6 | 55.9 | 36.8 |38.5 |59.0|41.6|  44.2M | 207B | val2017|
   | ReXNet_2.2-FPN | 1200x800 | **37.8** | **61.0** | **40.2** | **42.0** | **64.5** | **45.6**|  35.6M | 153.8B | val2017|
-
-### Transfer learning results
-- Using ImageNet-pretrained models to transfer on the fine-grained datasets:
-
-  <img src=https://user-images.githubusercontent.com/31481676/86427448-2cb94380-bd25-11ea-8e15-0637e69ba563.png width=540 hspace=30>
-
-
-### ReXNet-lites vs. EfficientNet-lites
-#### Model comparison
-- We compare ReXNet-lites with [EfficientNet-lites](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite).
-- Here the GPU latencies are measured on two M40 GPUs, we will update the number run on a V100 GPU soon.
-
-  Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params | CPU Lat./ GPU Lat.
-  :--: |:--:|:--:|:--:|:--:|:--:|
-  EfficientNet-lite0 | 224x224 | 75.1 | - |  0.41B/4.7M | 30ms/49ms
-  **ReXNet-lite_1.0** | 224x224 | 76.2 | 92.8 | 0.41B/4.7M | 31ms/49ms
-  |||||
-  EfficientNet-lite1 | 240x240 | 76.7 | - |  0.63B/5.4M | 44ms/73ms
-  **ReXNet-lite_1.3** | 224x224 | 77.8 | 93.8 | 0.65B/6.8M | 36ms/61ms  
-  |||||  
-  EfficientNet-lite2 | 260x260 | 77.6 | - | 0.90B/ 6.1M | 48ms/93ms
-  **ReXNet-lite_1.5** | 224x224 | 78.6 | 94.2| 0.84B/8.3M| 39ms/68ms    
-  |||||  
-  EfficientNet-lite3 | 280x280| 79.8  | - |  1.4B/ 8.2M | 60ms/131ms
-  **ReXNet-lite_2.0** | 224x224 | 80.2  | 95.0 | 1.5B/13M | 49ms/90ms  
   
 ## Getting Started
 ### Requirements
