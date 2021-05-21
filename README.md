@@ -120,7 +120,7 @@ Designing an efficient model within the limited computational cost is challengin
   import rexnetv1
   
   model = rexnetv1.ReXNetV1(width_mult=1.0).cuda()
-  model.load_state_dict(torch.load('./rexnetv1_1.0x.pth'))
+  model.load_state_dict(torch.load('./rexnetv1_1.0.pth'))
   model.eval()
   print(model(torch.randn(1, 3, 224, 224).cuda()))
   ```

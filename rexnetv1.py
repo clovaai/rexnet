@@ -14,12 +14,12 @@ USE_MEMORY_EFFICIENT_SiLU = True
 
 if USE_MEMORY_EFFICIENT_SiLU:
     @torch.jit.script
-    def SiLU_fwd(x):
+    def silu_fwd(x):
         return x.mul(torch.sigmoid(x))
 
 
     @torch.jit.script
-    def SiLU_bwd(x, grad_output):
+    def silu_bwd(x, grad_output):
         x_sigmoid = torch.sigmoid(x)
         return grad_output * (x_sigmoid * (1. + x * (1. - x_sigmoid)))
 
@@ -28,19 +28,19 @@ if USE_MEMORY_EFFICIENT_SiLU:
         @staticmethod
         def forward(ctx, x):
             ctx.save_for_backward(x)
-            return SiLU_fwd(x)
+            return silu_fwd(x)
 
         @staticmethod
         def backward(ctx, grad_output):
             x = ctx.saved_tensors[0]
-            return SiLU_bwd(x, grad_output)
+            return silu_bwd(x, grad_output)
 
 
-    def SiLU(x, inplace=False):
+    def silu(x, inplace=False):
         return SiLUJitImplementation.apply(x)
 
 else:
-    def SiLU(x, inplace=False):
+    def silu(x, inplace=False):
         return x.mul_(x.sigmoid()) if inplace else x.mul(x.sigmoid())
 
 
@@ -50,7 +50,7 @@ class SiLU(nn.Module):
         self.inplace = inplace
 
     def forward(self, x):
-        return SiLU(x, self.inplace)
+        return silu(x, self.inplace)
 
 
 def ConvBNAct(out, in_channels, channels, kernel=1, stride=1, pad=0,
@@ -66,7 +66,7 @@ def ConvBNSiLU(out, in_channels, channels, kernel=1, stride=1, pad=0, num_group=
     out.append(nn.Conv2d(in_channels, channels, kernel,
                          stride, pad, groups=num_group, bias=False))
     out.append(nn.BatchNorm2d(channels))
-    out.append(SiLU())
+    out.append(SiLU(inplace=True))
 
 
 class SE(nn.Module):
@@ -183,7 +183,10 @@ class ReXNetV1(nn.Module):
         return x
 
 
-def rexnet_100(pretrained=False, **kwargs):
-    """ReXNet V1 1.0x"""
-    return _create_rexnet('rexnet_100', pretrained, **kwargs)
-
+if __name__ == '__main__':
+    x = torch.randn(2, 3, 224, 224)
+    model = ReXNetV1(width_mult=1.0)
+    out = model(torch.randn(2, 3, 224, 224))
+    loss = out.sum()
+    loss.backward()
+    print('Checked a single forward/backward iteration')
