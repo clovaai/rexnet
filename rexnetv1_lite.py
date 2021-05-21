@@ -4,6 +4,7 @@ Copyright (c) 2021-present NAVER Corp.
 MIT license
 """
 
+import torch
 import torch.nn as nn
 from math import ceil
 
@@ -136,3 +137,10 @@ class ReXNetV1_lite(nn.Module):
         x = self.avgpool(x)
         x = self.output(x).squeeze()
         return x
+
+if __name__ == '__main__':
+    model = ReXNetV1_lite(multiplier=1.0)
+    out = model(torch.randn(2, 3, 224, 224))
+    loss = out.sum()
+    loss.backward()
+    print('Checked a single forward/backward iteration')
