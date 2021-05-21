@@ -184,7 +184,6 @@ class ReXNetV1(nn.Module):
 
 
 if __name__ == '__main__':
-    x = torch.randn(2, 3, 224, 224)
     model = ReXNetV1(width_mult=1.0)
     out = model(torch.randn(2, 3, 224, 224))
     loss = out.sum()
