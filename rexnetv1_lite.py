@@ -135,7 +135,7 @@ class ReXNetV1_lite(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = self.avgpool(x)
-        x = self.output(x).squeeze()
+        x = self.output(x).flatten(1)
         return x
 
 if __name__ == '__main__':
@@ -144,3 +144,4 @@ if __name__ == '__main__':
     loss = out.sum()
     loss.backward()
     print('Checked a single forward/backward iteration')
+
