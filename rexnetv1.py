@@ -179,7 +179,7 @@ class ReXNetV1(nn.Module):
 
     def forward(self, x):
         x = self.features(x)
-        x = self.output(x).squeeze()
+        x = self.output(x).flatten(1)
         return x
 
 
