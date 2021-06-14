@@ -177,7 +177,7 @@ class ReXNetV1(nn.Module):
             nn.Dropout(dropout_ratio),
             nn.Conv2d(pen_channels, classes, 1, bias=True))
         
-    def extract_features(self, x)
+    def extract_features(self, x):
         return self.features[:-1](x)
     
     def forward(self, x):
