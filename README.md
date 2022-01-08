@@ -1,4 +1,4 @@
-#### (NOTICE) ReXNet-lite's code and the model file (x1.0) have been updated!
+#### (NOTICE) All the ReXNet-lite's model files have been updated!
 #### (NOTICE) Our paper has been accepted at CVPR 2021!! The paper has been updated at [arxiv](https://arxiv.org/pdf/2007.00992.pdf)!
 
 ## Rethinking Channel Dimensions for Efficient Model Design
@@ -24,7 +24,7 @@ Designing an efficient model within the limited computational cost is challengin
 - EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
     Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
-    :--: |:--:|:--:|:--:|:--:|:--:|
+    :--: |:--:|:--:|:-        -:|:--:|:--:|
     **ReXNet_0.9** | 224x224 | 77.2 | 93.5 | 0.35B/4.1M | 45ms/20ms
     |||||    
     EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/23ms  
@@ -73,9 +73,9 @@ Designing an efficient model within the limited computational cost is challengin
   [ReXNet_3.0](https://drive.google.com/file/d/1iXAsr8gs3pRz0QyHKomdj5SGVzPWbIs2/view?usp=sharing)  | 224x224 | 82.8 | 96.2 | 3.4B/34M |  
   ||||
   [ReXNet-lite_1.0](https://drive.google.com/file/d/1d9G4pLwZwkoDR2TRPCQlxiWiuC7R-Oqf/view?usp=sharing) | 224x224 | 76.2 | 92.8 | 0.41B/4.7M |
-  [ReXNet-lite_1.3]() | 224x224 | 77.8 | 93.8 | 0.65B/6.8M |
-  [ReXNet-lite_1.5]() | 224x224 | 78.6 | 94.2 | 0.84B/8.3M| 
-  [ReXNet-lite_2.0]() | 224x224 | 80.2 | 95.0 | 1.5B/13M | 
+  [ReXNet-lite_1.3](https://drive.google.com/file/d/1NsbsdI8qAHG6HdMxmySXcrl9NdEx3s0L/view?usp=sharing) | 224x224 | 77.8 | 93.8 | 0.65B/6.8M |
+  [ReXNet-lite_1.5](https://drive.google.com/file/d/12QzIh9A-U0PBGaLNOIr4gX2MoZEBnRjk/view?usp=sharing) | 224x224 | 78.6 | 94.2 | 0.84B/8.3M| 
+  [ReXNet-lite_2.0](https://drive.google.com/file/d/1pGdG9HWnqSAu1FajmaMJMK5JyOJaiFyW/view?usp=sharing) | 224x224 | 80.2 | 95.0 | 1.5B/13M | 
 
 ### Finetuning results
 #### COCO Object detection 
