@@ -23,21 +23,21 @@ Designing an efficient model within the limited computational cost is challengin
 - The CPU latencies are tested on Xeon E5-2630_v4 with a single image and the GPU latencies are measured on a V100 GPU with **the batchsize of 64**.
 - EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
-    Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
-    :--: |:--:|:--:|:--:|:--:|:--:|
-    **ReXNet_0.9** | 224x224 | 77.2 | 93.5 | 0.35B/4.1M | 45ms/20ms
-    |||||    
-    EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/23ms  
-    **ReXNet_1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/21ms
-    |||||
-    EfficientNet-B1 | 240x240 | 79.2 | 94.5 | 0.70B/7.8M | 70ms/37ms
-    **ReXNet_1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/28ms  
-    |||||
-    EfficientNet-B2 | 260x260 | 80.3 | 95.0 | 1.0B/9.2M | 77ms/48ms
-    **ReXNet_1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/31ms
-    |||||
-    EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/78ms    
-    **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/40ms  
+    | Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat. |
+    | :--: |:--:|:--:|:--:|:--:|:--:|
+    | **ReXNet_0.9** | 224x224 | 77.2 | 93.5 | 0.35B/4.1M | 45ms/20ms |
+    |||||||    
+    | EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/23ms | 
+    **ReXNet_1.0** | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 47ms/21ms |
+    |||||||
+    | EfficientNet-B1 | 240x240 | 79.2 | 94.5 | 0.70B/7.8M | 70ms/37ms |
+    | **ReXNet_1.3** | 224x224 | 79.5 | 94.7| 0.66B/7.6M | 55ms/28ms | 
+    |||||||
+    | EfficientNet-B2 | 260x260 | 80.3 | 95.0 | 1.0B/9.2M | 77ms/48ms |
+    | **ReXNet_1.5** | 224x224 | 80.3 | 95.2| 0.88B/9.7M | 59ms/31ms |
+    |||||||
+    | EfficientNet-B3 | 300x300 | 81.7 | 95.6 | 1.8B/12M | 100ms/78ms |   
+    | **ReXNet_2.0** | 224x224 | 81.6 | 95.7 |  1.8B/19M | 69ms/40ms | 
     
 #### ReXNet-lites vs. EfficientNet-lites
 - ReXNet-lites do not use SE-net an SiLU activations aiming to faster training and inference speed.
@@ -68,7 +68,7 @@ Designing an efficient model within the limited computational cost is challengin
   :--: |:--:|:--:|:--:|:--:
   [ReXNet_1.0](https://drive.google.com/file/d/1xeIJ3wb83uOowU008ykYj6wDX2dsncA9/view?usp=sharing)  | 224x224 | 77.9 | 93.9 | 0.40B/4.8M | 
   [ReXNet_1.3](https://drive.google.com/file/d/1x2ziK9Oyv66Y9NsxJxXsdjzpQF2uSJj0/view?usp=sharing)  | 224x224 | 79.5 | 94.7 | 0.66B/7.6M | 
-  [ReXNet_1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.66B/7.6M | 
+  [ReXNet_1.5](https://drive.google.com/file/d/1TOBGsbDhTHWBgqcRnyKIR0tHsJTOPUIG/view?usp=sharing)  | 224x224 | 80.3 | 95.2 | 0.88B/9.7M | 
   [ReXNet_2.0](https://drive.google.com/file/d/1R1aOTKIe1Mvck86NanqcjWnlR8DY-Z4C/view?usp=sharing)  | 224x224 | 81.6 | 95.7 | 1.5B/16M | 
   [ReXNet_3.0](https://drive.google.com/file/d/1iXAsr8gs3pRz0QyHKomdj5SGVzPWbIs2/view?usp=sharing)  | 224x224 | 82.8 | 96.2 | 3.4B/34M |  
   ||||
