@@ -24,7 +24,7 @@ Designing an efficient model within the limited computational cost is challengin
 - EfficientNets' scores are taken form [arxiv v3 of the paper](https://arxiv.org/pdf/1905.11946v3.pdf).
 
     Model | Input Res. | Top-1 acc. | Top-5 acc. | FLOPs/params. | CPU Lat./ GPU Lat.
-    :--: |:--:|:--:|:-        -:|:--:|:--:|
+     :--: |:--:|:--:|:--:|:--:|:--:|
     **ReXNet_0.9** | 224x224 | 77.2 | 93.5 | 0.35B/4.1M | 45ms/20ms
     |||||    
     EfficientNet-B0 | 224x224 | 77.3 | 93.5 |  0.39B/5.3M | 47ms/23ms  
