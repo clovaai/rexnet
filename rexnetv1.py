@@ -171,18 +171,20 @@ class ReXNetV1(nn.Module):
         pen_channels = int(1280 * width_mult)
         ConvBNSiLU(features, c, pen_channels)
 
-        features.append(nn.AdaptiveAvgPool2d(1))
         self.features = nn.Sequential(*features)
+
         self.output = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
             nn.Dropout(dropout_ratio),
-            nn.Conv2d(pen_channels, classes, 1, bias=True))
-        
+            nn.Conv2d(pen_channels, classes, 1, bias=True),
+            nn.Flatten())
+
     def extract_features(self, x):
-        return self.features[:-1](x)
-    
+        return self.features(x)
+
     def forward(self, x):
         x = self.features(x)
-        x = self.output(x).flatten(1)
+        x = self.output(x)
         return x
 
 

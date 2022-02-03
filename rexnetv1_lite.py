@@ -123,20 +123,24 @@ class ReXNetV1_lite(nn.Module):
         _add_conv(features, c, pen_channels, bn_momentum=bn_momentum, bn_eps=bn_eps)
 
         self.features = nn.Sequential(*features)
-        self.avgpool = nn.AdaptiveAvgPool2d(1)
 
         self.output = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
             nn.Conv2d(pen_channels, 1024, 1, bias=True),
             nn.BatchNorm2d(1024, momentum=bn_momentum, eps=bn_eps),
             nn.ReLU6(inplace=True),
             nn.Dropout(dropout_ratio),
-            nn.Conv2d(1024, classes, 1, bias=True))
+            nn.Conv2d(1024, classes, 1, bias=True),
+            nn.Flatten())
+
+    def extract_features(self, x):
+        return self.features(x)
 
     def forward(self, x):
         x = self.features(x)
-        x = self.avgpool(x)
-        x = self.output(x).flatten(1)
+        x = self.output(x)
         return x
+
 
 if __name__ == '__main__':
     model = ReXNetV1_lite(multiplier=1.0)
@@ -144,4 +148,3 @@ if __name__ == '__main__':
     loss = out.sum()
     loss.backward()
     print('Checked a single forward/backward iteration')
-
